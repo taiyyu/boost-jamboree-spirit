@@ -15,6 +15,7 @@
 #include <boost/spirit/repository/home/qi/directive/confix.hpp>
 #include <boost/spirit/repository/home/qi/directive/kwd.hpp>
 #include <boost/spirit/repository/home/qi/directive/embed.hpp>
+#include <boost/spirit/repository/home/qi/directive/seek.hpp>
 
 #endif
 
