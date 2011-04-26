@@ -17,7 +17,7 @@
 
 namespace boost { namespace spirit { namespace repository
 {
-    // The distinct extended terminal
+    // The embed extended terminal
     BOOST_SPIRIT_DEFINE_TERMINALS_NAME_EX(( embed, embed_type ))
 
 }}}
