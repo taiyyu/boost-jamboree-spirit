@@ -17,8 +17,8 @@
 
 namespace boost { namespace spirit { namespace repository
 {
-    // The seek extended terminal
-    BOOST_SPIRIT_DEFINE_TERMINALS_NAME_EX(( seek, seek_type ))
+    // The seek terminal
+    BOOST_SPIRIT_DEFINE_TERMINALS_NAME(( seek, seek_type ))
 
 }}}
 
