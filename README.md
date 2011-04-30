@@ -7,6 +7,8 @@ Author: Jamboree (tongari95@gmail.com)
 HOW TO INSTALL
 --------------
 
+Dowload the package from this site, or
+
 Check out from github
 
         $ git clone https://github.com/jamboree/boost-jamboree-spirit boost-jamboree-spirit
