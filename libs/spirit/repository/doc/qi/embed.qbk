@@ -1,0 +1,84 @@
+[/==============================================================================
+    Copyright (C) 2001-2011 Joel de Guzman
+    Copyright (C) 2001-2011 Hartmut Kaiser
+    Copyright (C) 2011 Jamboree 
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+===============================================================================/]
+
+[section:embed Qi Embed Parser Directive ]
+
+[heading Description]
+
+The `embed[]` parser-directive provides a mechanism for parsing against the
+embedded range instead of normal input. 
+
+A __range__ is a general concept, such as STL container, `std::string`,
+and __boost_iterator_range__ are all ranges. 
+For __qi__, it's natively __boost_iterator_range__,
+as what you get from `qi::raw[]`.
+
+__qi__ requires __fwd_range__.
+There's no restriction imposed on the range type, even whiches range-iterator
+not compatible with input iterator can be used, while it actually depends on the
+enclosed parser.
+
+[heading Header]
+
+    // forwards to <boost/spirit/repository/home/qi/directive/embed.hpp>
+    #include <boost/spirit/repository/include/qi_embed.hpp>
+
+Also, see __include_structure__.
+
+[heading Namespace]
+
+[table
+    [[Name]]
+    [[`boost::spirit::repository::qi::embed`]]
+]
+
+[heading Model of]
+
+[:__unary_parser_concept__]
+
+[variablelist Notation
+    [[`rng`]        [A __fwd_range__, or a __qi_lazy_argument__ that evaluates to
+                     __fwd_range__.]]
+    [[`a`]          [A __parser_concept__.]]
+]
+
+[heading Expression Semantics]
+
+Semantics of an expression is defined only where it differs from, or is
+not defined in __unary_parser_concept__.
+
+[table
+    [[Expression]               [Semantics]]
+    [[`embed(rng)[a]`]          [Parse `a` against `rng`, regardless of input.]]
+]
+
+[heading Attributes]
+
+See __qi_comp_attr_notation__.
+
+[table
+    [[Expression]       [Attribute]]
+    [[`embed(rng)[a]`]
+[``a: A --> embed(rng)[a]: A
+a: Unused --> embed(rng)[a]: Unused``]]
+]
+
+[heading Complexity]
+
+[:The complexity is defined by the complexity of the subject parser, `a`]
+
+[heading Example]
+
+TODO
+
+[important *Embedded-Range & Error-Handling*
+
+TODO]
+
+[endsect]

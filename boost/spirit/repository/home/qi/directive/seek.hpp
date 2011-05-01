@@ -60,7 +60,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
         seek_directive(Subject const& subject)
           : subject(subject)
         {}
-        
+
         template
         <
             typename Iterator, typename Context
@@ -73,15 +73,17 @@ namespace boost { namespace spirit { namespace repository {namespace qi
           , Attribute& attr
         ) const
         {
-            for (Iterator it(first); it != last; ++it)
+            for (Iterator it(first); ; ++it)
             {
                 if (subject.parse(it, last, context, skipper, attr))
                 {
                     first = it;
                     return true;
                 }
-            }            
-            return false;
+                // fail only after subject fails & no input
+                if (it == last)
+                    return false;
+            }         
         }
         
         template <typename Context>
