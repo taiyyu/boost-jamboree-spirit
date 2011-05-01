@@ -75,10 +75,83 @@ a: Unused --> embed(rng)[a]: Unused``]]
 
 [heading Example]
 
-TODO
+[import ../../example/qi/embed.cpp]
+
+The following example shows a simple use case of the `embed[]` directive that
+exploits Nabialek-Trick and demonstrates the basic error-handling ability.
+(for the full example code, see [@../../example/qi/embed.cpp embed.cpp])
+
+Some namespace aliases & using declaration:
+
+[reference_qi_embed_namespace]
+
+And some typedefs:
+
+[reference_qi_embed_typedef]
+
+Here we declare the rules and symbol table:
+
+[reference_qi_embed_rule_decl]
+
+Let's define our rules now:
+
+[reference_qi_embed_rule_def_p1]
+
+In `demo`, we try to match the keyword pattern `kwd_patt`, store the matched range
+in the local variable `qi::_a`, and feed `full_kwd` with it through the `embed[]` directive.
+After `full_kwd` matched, a corresponding rule is stored into the local variable
+ `qi::_b` (by pointer), which we expect to match after seeing the keyword.
+
+`full_kwd` expects a full-match of `kwd`.
+
+`kwd_patt` matches string like C++ identifier, exposing the matched range.
+
+
+Here's the rest of our rules:
+
+[reference_qi_embed_rule_def_p2]
+
+For error-handling:
+
+[reference_qi_embed_rule_error_handling]
+
+Since we use expectation-points in both the main rule `demo` and the embedded `full_kwd`,
+we'd better define the error-handlers for them respectively.
 
 [important *Embedded-Range & Error-Handling*
 
 TODO]
+
+[heading Samples]
+
+[:In \[1\]:]
+
+[pre
+int a
+]
+
+[:Out \[1\]:]
+
+[pre
+\[demo\] Error! Expecting <int> here: "a"
+-------------------------------- 
+Parsing failed, rest: int a
+-------------------------------- 
+]
+
+[:In \[2\]:]
+
+[pre
+double9.5
+]
+
+[:Out \[2\]:]
+
+[pre
+\[full_kwd\] Error! Expecting <eoi> here: "9"
+-------------------------------- 
+Parsing failed, rest: double9.5
+-------------------------------- 
+]
 
 [endsect]
