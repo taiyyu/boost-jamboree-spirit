@@ -1,6 +1,6 @@
 Jamboree's Spirit Repository
-============
-Author: Jamboree <tongari95@gmail.com>
+============================
+Author: Jamboree (tongari95@gmail.com)
 
 
 
@@ -23,11 +23,11 @@ Place your install path in your C++ compiler's include path, make sure that it c
 CONTENTS
 --------
 
-/Spirit.Qi/
+*Spirit.Qi*
 
 * [embed-directive](http://jamboree.zzl.org/qi/embed.html)
 * [seek-directive](http://jamboree.zzl.org/qi/seek.html)
 
-/Spirit.Karma/
+*Spirit.Karma*
 
 * [embed-directive](http://jamboree.zzl.org/karma/embed.html)
