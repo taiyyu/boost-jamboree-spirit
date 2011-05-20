@@ -60,34 +60,6 @@ namespace boost { namespace spirit { namespace repository
         row_type _row;
         col_type _col;
     };
-    
-    struct buddy_access
-    {
-        template<class Iterator, typename R, typename C>
-        static inline
-        void add_col(buddy_pos_iterator<Iterator, R, C>& it, std::size_t n)
-        {
-            it._col += n;
-        }
-
-        template<class Iterator, typename R, typename C>
-        static inline
-        void inc_row(buddy_pos_iterator<Iterator, R, C>& it)
-        {
-            ++it._row;
-            it._col = 0; 
-        }
-        
-        template<class Iterator>
-        static inline
-        void add_col(Iterator&, std::size_t)
-        {}
-
-        template<class Iterator>
-        static inline
-        void inc_row(Iterator&)
-        {}
-    };
 }}}
 
 

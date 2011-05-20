@@ -20,7 +20,7 @@
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/char_class.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
-#include <boost/spirit/repository/home/support/buddy_pos_iterator.hpp>
+#include <boost/spirit/repository/home/support/buddy_access.hpp>
 
 
 namespace boost { namespace spirit { namespace repository
