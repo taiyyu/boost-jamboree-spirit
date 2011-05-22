@@ -106,11 +106,11 @@ namespace boost { namespace spirit { namespace karma
     {
         typedef repository::karma::trans_directive<Subject, T, F> result_type;
         
-        template <typename Terminal>
+        template <typename StatefulTag>
         result_type operator()(
-            Terminal const& term, Subject const& subject, unused_type) const
+            StatefulTag const& tag, Subject const& subject, unused_type) const
         {
-            return result_type(subject, proto::value(term));
+            return result_type(subject, tag.data_);
         }
     };
 }}} // namespace boost::spirit::karma
