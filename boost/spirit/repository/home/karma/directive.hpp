@@ -13,6 +13,7 @@
 
 #include <boost/spirit/repository/home/karma/directive/confix.hpp>
 #include <boost/spirit/repository/home/karma/directive/embed.hpp>
+#include <boost/spirit/repository/home/karma/directive/trans.hpp>
 
 #endif
 
