@@ -27,7 +27,13 @@ CONTENTS
 
 * [embed-directive](http://jamboree.zzl.org/qi/embed.html)
 * [seek-directive](http://jamboree.zzl.org/qi/seek.html)
+* buddy_space-primitive
 
 *Spirit.Karma*
 
 * [embed-directive](http://jamboree.zzl.org/karma/embed.html)
+* trans-directive
+
+*Spirit.Support*
+
+* buddy_pos_iterator & buddy_access
