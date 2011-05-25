@@ -21,6 +21,10 @@
 #include <boost/spirit/home/support/handles_container.hpp>
 #include <boost/spirit/home/karma/detail/attributes.hpp>
 
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/type_traits/is_same.hpp>
+
 
 namespace boost { namespace spirit { namespace repository
 {
@@ -31,11 +35,20 @@ namespace boost { namespace spirit { namespace repository
 
     namespace karma
     {
+        // enables trans<T>(f)[...]
         template <typename T, typename F>
         inline
         spirit::stateful_tag_type<F, tag::trans, T> trans(F f)
         {
             return spirit::stateful_tag_type<F, tag::trans, T>(f);
+        }
+        
+        // enables trans(f)[...]
+        template <typename F>
+        inline
+        spirit::stateful_tag_type<F, tag::trans> trans(F f)
+        {
+            return spirit::stateful_tag_type<F, tag::trans>(f);
         } 
     }
 }}}
@@ -63,9 +76,13 @@ namespace boost { namespace spirit { namespace repository {namespace karma
         
         template <typename Context, typename Iterator>
         struct attribute
-        {
-            typedef T type;
-        };
+          : mpl::eval_if
+            <
+                is_same<T, unused_type>
+              , traits::attribute_of<subject_type, Context, Iterator>
+              , mpl::identity<T>
+            >
+        {};
         
         trans_directive(Subject const& subject, F f)
           : subject(subject), f(f)
