@@ -20,7 +20,7 @@
 #include <boost/spirit/home/support/unused.hpp>
 #include <boost/spirit/home/support/char_class.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
-#include <boost/spirit/repository/home/support/buddy_access.hpp>
+#include <boost/spirit/repository/home/support/buddy_component.hpp>
 
 
 namespace boost { namespace spirit { namespace repository
@@ -62,7 +62,8 @@ namespace boost { namespace spirit { namespace repository {namespace qi
 {
     template <typename CharEncoding>
     struct any_buddy_space_parser
-      : spirit::qi::primitive_parser<any_buddy_space_parser<CharEncoding> >
+      : buddy_component<any_buddy_space_parser<CharEncoding> > 
+      , spirit::qi::primitive_parser<any_buddy_space_parser<CharEncoding> >
     {
         typedef CharEncoding char_encoding;
         typedef spirit::tag::space classification;
@@ -81,14 +82,11 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                    && classify<char_encoding>::is(classification(), ch);
         }
         
-        template<class Iterator, typename R, typename C>
-        void buddy_check_pos
-        (
-            buddy_pos_iterator<Iterator, R, C>& first
-          , buddy_pos_iterator<Iterator, R, C> const& last
-        ) const
+        template<class Iterator>
+        typename enable_if<repository::traits::is_buddy_pos_iterator<Iterator> >::type
+        buddy_check_pos(Iterator& first, Iterator const& last) const
         {
-            buddy_pos_iterator<Iterator, R, C> it(first);
+            Iterator it(first);
             bool matched = false;
             if (*it == '\r')  // CR
             {
@@ -102,7 +100,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
             }
 
             if (matched)
-                buddy_access::inc_row(it);
+                inc_row(it);
             else
                 ++it;
                 
@@ -110,7 +108,8 @@ namespace boost { namespace spirit { namespace repository {namespace qi
         }
         
         template<class Iterator> // for non-buddy_pos_iterator
-        void buddy_check_pos(Iterator& first, Iterator const&) const
+        typename disable_if<repository::traits::is_buddy_pos_iterator<Iterator> >::type
+        buddy_check_pos(Iterator& first, Iterator const&) const
         {
             ++first;
         }

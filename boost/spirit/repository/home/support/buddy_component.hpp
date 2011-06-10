@@ -4,8 +4,8 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
 //////////////////////////////////////////////////////////////////////////////*/
-#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_ACCESS
-#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_ACCESS
+#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COMPONENT
+#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COMPONENT
 
 
 #include <boost/utility/enable_if.hpp>
@@ -15,20 +15,25 @@
 
 namespace boost { namespace spirit { namespace repository
 {
-    struct buddy_access
+    template<class Component>
+    struct buddy_component
     {
-        template<class Derived>
+    protected:
+        
+        template<class Iterator>
         static inline
-        void add_col(buddy_pos_iterator<Derived>& it, std::size_t n)
+        typename enable_if<traits::is_buddy_pos_iterator<Iterator> >::type
+        add_col(Iterator& it, std::size_t n)
         {
-            it.derived().add_col(n);
+            it.add_col(n);
         }
 
-        template<class Derived>
+        template<class Iterator>
         static inline
-        void inc_row(buddy_pos_iterator<Derived>& it)
+        typename enable_if<traits::is_buddy_pos_iterator<Iterator> >::type
+        inc_row(Iterator& it)
         {
-            it.derived().inc_row(); 
+            it.inc_row(); 
         }
 
         template<class Iterator>

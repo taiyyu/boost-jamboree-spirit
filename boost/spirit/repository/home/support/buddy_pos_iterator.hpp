@@ -8,59 +8,47 @@
 #define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_POS_ITERATOR
 
 
-#include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/mpl/has_xxx.hpp>
 
 
 namespace boost { namespace spirit { namespace repository
 {            
-    template <class Iterator, typename Row = std::size_t, typename Col = Row>
-    class buddy_pos_iterator
-      : public boost::iterator_adaptor
-        <
-            buddy_pos_iterator<Iterator>    // Derived
-          , Iterator                        // Base
-          , boost::use_default              // Value
-          , boost::forward_traversal_tag    // CategoryOrTraversal
-        >
-    {
-    public:
+    template <class Derived>
+    struct buddy_pos_iterator
+    {        
+        struct buddy_pos_iterator_id;
+        typedef Derived derived_type;
+
+        // Requirement: it.inc_row()
+        // Requirement: it.add_col(n)
+        //
+        //  it:         an iterator with 'buddy_access' as friend
+        //  n:          a std::size_t
         
-        typedef Row row_type;
-        typedef Col col_type;
-        
-        buddy_pos_iterator()
-          : buddy_pos_iterator::iterator_adaptor_(), _row(), _col() 
-        {} 
-
-        explicit buddy_pos_iterator(Iterator const& base)
-          : buddy_pos_iterator::iterator_adaptor_(base), _row(), _col() 
-        {} 
-
-        row_type row() const
+        Derived& derived()
         {
-            return _row;
-        }
-
-        col_type col() const
-        {
-            return _col;
+            return *static_cast<Derived*>(this);
         }
         
-    private:
-        
-        friend class boost::iterator_core_access;
-        friend class buddy_access;
-
-        void increment()
+        Derived const& derived() const
         {
-            ++_col;
-            ++this->base_reference();
+            return *static_cast<Derived const*>(this);
         }
-
-        row_type _row;
-        col_type _col;
     };
 }}}
+
+
+namespace boost { namespace spirit { namespace repository { namespace traits
+{
+    namespace detail
+    {
+        BOOST_MPL_HAS_XXX_TRAIT_DEF(buddy_pos_iterator_id)
+    }
+                    
+    template <class Iterator>
+    struct is_buddy_pos_iterator
+      : detail::has_buddy_pos_iterator_id<Iterator> {};
+}}}}
 
 
 #endif
