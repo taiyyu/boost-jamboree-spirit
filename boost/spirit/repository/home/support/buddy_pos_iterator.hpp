@@ -22,7 +22,7 @@ namespace boost { namespace spirit { namespace repository
         // Requirement: it.inc_row()
         // Requirement: it.add_col(n)
         //
-        //  it:         an iterator with 'buddy_access' as friend
+        //  it:         an iterator
         //  n:          a std::size_t
         
         Derived& derived()
