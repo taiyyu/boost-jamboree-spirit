@@ -4,8 +4,8 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
 //////////////////////////////////////////////////////////////////////////////*/
-#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_COOPERATIVE_BUDDY_POS_ITERATOR
-#define BOOST_SPIRIT_REPOSITORY_SUPPORT_COOPERATIVE_BUDDY_POS_ITERATOR
+#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COOPERATIVE_POS_ITERATOR
+#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COOPERATIVE_POS_ITERATOR
 
 
 #include <vector> // as default Cooperator
@@ -18,11 +18,11 @@
 namespace boost { namespace spirit { namespace repository
 {            
     template <class Iterator, class Cooperator = std::vector<std::size_t> >
-    class cooperative_buddy_pos_iterator
-      : public buddy_pos_iterator<cooperative_buddy_pos_iterator<Iterator> >
+    class buddy_cooperative_pos_iterator
+      : public buddy_pos_iterator<buddy_cooperative_pos_iterator<Iterator> >
       , public boost::iterator_adaptor
         <
-            cooperative_buddy_pos_iterator<Iterator>  // Derived
+            buddy_cooperative_pos_iterator<Iterator>  // Derived
           , Iterator                                  // Base
           , boost::use_default                        // Value
           , boost::forward_traversal_tag              // CategoryOrTraversal
@@ -32,15 +32,15 @@ namespace boost { namespace spirit { namespace repository
         
         typedef Cooperator cooperator_type;
         
-        cooperative_buddy_pos_iterator(Cooperator& co)
-          : cooperative_buddy_pos_iterator::iterator_adaptor_()
+        buddy_cooperative_pos_iterator(Cooperator& co)
+          : buddy_cooperative_pos_iterator::iterator_adaptor_()
           , _pos(), _co(co)
         {
             _co.resize(1, 0);
         } 
 
-        cooperative_buddy_pos_iterator(Iterator const& base, Cooperator& co)
-          : cooperative_buddy_pos_iterator::iterator_adaptor_(base)
+        buddy_cooperative_pos_iterator(Iterator const& base, Cooperator& co)
+          : buddy_cooperative_pos_iterator::iterator_adaptor_(base)
           , _pos(), _co(co)
         {
             _co.resize(1, 0);

@@ -4,8 +4,8 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
 //////////////////////////////////////////////////////////////////////////////*/
-#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_NORMAL_BUDDY_POS_ITERATOR
-#define BOOST_SPIRIT_REPOSITORY_SUPPORT_NORMAL_BUDDY_POS_ITERATOR
+#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_FULL_POS_ITERATOR
+#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_FULL_POS_ITERATOR
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -16,11 +16,11 @@
 namespace boost { namespace spirit { namespace repository
 {            
     template <class Iterator, typename Row = std::size_t, typename Col = Row>
-    class normal_buddy_pos_iterator
-      : public buddy_pos_iterator<normal_buddy_pos_iterator<Iterator, Row, Col> >
+    class buddy_full_pos_iterator
+      : public buddy_pos_iterator<buddy_full_pos_iterator<Iterator, Row, Col> >
       , public boost::iterator_adaptor
         <
-            normal_buddy_pos_iterator<Iterator, Row, Col>   // Derived
+            buddy_full_pos_iterator<Iterator, Row, Col>     // Derived
           , Iterator                                        // Base
           , boost::use_default                              // Value
           , boost::forward_traversal_tag                    // CategoryOrTraversal
@@ -31,12 +31,12 @@ namespace boost { namespace spirit { namespace repository
         typedef Row row_type;
         typedef Col col_type;
         
-        normal_buddy_pos_iterator()
-          : normal_buddy_pos_iterator::iterator_adaptor_(), _row(), _col() 
+        buddy_full_pos_iterator()
+          : buddy_full_pos_iterator::iterator_adaptor_(), _row(), _col() 
         {} 
 
-        explicit normal_buddy_pos_iterator(Iterator const& base)
-          : normal_buddy_pos_iterator::iterator_adaptor_(base), _row(), _col() 
+        explicit buddy_full_pos_iterator(Iterator const& base)
+          : buddy_full_pos_iterator::iterator_adaptor_(base), _row(), _col() 
         {} 
 
         row_type row() const

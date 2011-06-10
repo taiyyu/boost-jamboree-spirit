@@ -4,13 +4,13 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
 //////////////////////////////////////////////////////////////////////////////*/
-#ifndef BOOST_SPIRIT_INCLUDE_SUPPORT_REPOSITORY_NORMAL_BUDDY_POS_ITERATOR
-#define BOOST_SPIRIT_INCLUDE_SUPPORT_REPOSITORY_NORMAL_BUDDY_POS_ITERATOR
+#ifndef BOOST_SPIRIT_INCLUDE_SUPPORT_REPOSITORY_BUDDY_FULL_POS_ITERATOR
+#define BOOST_SPIRIT_INCLUDE_SUPPORT_REPOSITORY_BUDDY_FULL_POS_ITERATOR
 
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
-#include <boost/spirit/repository/home/support/iterators/normal_buddy_pos_iterator.hpp>
+#include <boost/spirit/repository/home/support/iterators/buddy_full_pos_iterator.hpp>
 
 #endif
