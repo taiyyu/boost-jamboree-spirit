@@ -99,9 +99,9 @@ namespace boost { namespace spirit { namespace repository
 
         this_type operator++(int)
         {
-            this->base_type::operator++(0);
-            ++_pos;
-            return *this;
+            this_type ret(*this); 
+            this->operator++();
+            return ret;
         }
                 
         std::size_t pos() const
