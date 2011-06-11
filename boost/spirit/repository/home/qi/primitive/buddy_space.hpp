@@ -100,13 +100,13 @@ namespace boost { namespace spirit { namespace repository {namespace qi
             }
 
             if (matched)
-                inc_row(it);
+                inc_row(it); 
             else
                 ++it;
                 
             first = it;
         }
-        
+
         template<class Iterator> // for non-buddy_pos_iterator
         typename disable_if<repository::traits::is_buddy_pos_iterator<Iterator> >::type
         buddy_check_pos(Iterator& first, Iterator const&) const
@@ -121,7 +121,6 @@ namespace boost { namespace spirit { namespace repository {namespace qi
           , Attribute& /*attr*/) const
         {            
             spirit::qi::skip_over(first, last, skipper);
-
             if (first != last && test(*first))
             {
                 buddy_check_pos(first, last);

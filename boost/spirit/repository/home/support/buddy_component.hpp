@@ -41,7 +41,7 @@ namespace boost { namespace spirit { namespace repository
         typename disable_if<traits::is_buddy_pos_iterator<Iterator> >::type
         add_col(Iterator&, std::size_t)
         {}
-
+ 
         template<class Iterator>
         static inline
         typename disable_if<traits::is_buddy_pos_iterator<Iterator> >::type

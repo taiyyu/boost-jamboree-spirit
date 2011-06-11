@@ -19,7 +19,8 @@ namespace boost { namespace spirit { namespace repository
 {            
     template <class Iterator, class Cooperator = std::vector<std::size_t> >
     class buddy_cooperative_pos_iterator
-      : public buddy_pos_iterator<buddy_cooperative_pos_iterator<Iterator> >
+      : public buddy_pos_iterator
+        <buddy_cooperative_pos_iterator<Iterator, Cooperator> >
       , public boost::iterator_adaptor
         <
             buddy_cooperative_pos_iterator<Iterator>  // Derived
@@ -28,22 +29,36 @@ namespace boost { namespace spirit { namespace repository
           , boost::forward_traversal_tag              // CategoryOrTraversal
         >
     {
+        typedef buddy_cooperative_pos_iterator this_type;
+         
     public:
         
         typedef Cooperator cooperator_type;
         
-        buddy_cooperative_pos_iterator(Cooperator& co)
-          : buddy_cooperative_pos_iterator::iterator_adaptor_()
-          , _pos(), _co(co)
+        buddy_cooperative_pos_iterator()
+          : this_type::iterator_adaptor_()
+          , _pos(), _co()
         {
-            _co.resize(1, 0);
+        }
+        
+        explicit buddy_cooperative_pos_iterator(Cooperator& co)
+          : this_type::iterator_adaptor_()
+          , _pos(), _co(&co)
+        {
+            _co->resize(1, 0);
         } 
 
-        buddy_cooperative_pos_iterator(Iterator const& base, Cooperator& co)
-          : buddy_cooperative_pos_iterator::iterator_adaptor_(base)
-          , _pos(), _co(co)
+        explicit buddy_cooperative_pos_iterator(Iterator const& base)
+          : this_type::iterator_adaptor_(base)
+          , _pos(), _co()
         {
-            _co.resize(1, 0);
+        }
+        
+        buddy_cooperative_pos_iterator(Iterator const& base, Cooperator& co)
+          : this_type::iterator_adaptor_(base)
+          , _pos(), _co(&co)
+        {
+            _co->resize(1, 0);
         }
 
         std::size_t pos() const
@@ -66,8 +81,9 @@ namespace boost { namespace spirit { namespace repository
         
         void inc_row()
         {
-            if (_co.back() < _pos)
-                _co.push_back(_pos);
+            // assert(_co); 
+            if (_co->back() < _pos)
+                _co->push_back(_pos);
         }
 
         void add_col(std::size_t n)
@@ -76,7 +92,7 @@ namespace boost { namespace spirit { namespace repository
         }
 
         std::size_t _pos;
-        Cooperator& _co;    // stores the start-positions of lines
+        Cooperator* _co;    // stores the start-positions of lines
     };
 }}}
 

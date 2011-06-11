@@ -75,11 +75,8 @@ namespace boost { namespace spirit { namespace repository {namespace qi
         
         template <typename Context, typename /*Iterator*/>
         struct attribute
-        {
-            typedef typename
-                traits::attribute_of<subject_type, Context, embedded_iterator>::type
-            type;
-        };
+          : spirit::traits::attribute_of<subject_type, Context, embedded_iterator>
+        {}; 
             
         embed_directive(Subject const& subject, range_param range)
           : subject(subject), range(range)
