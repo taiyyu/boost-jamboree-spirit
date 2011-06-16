@@ -4,11 +4,11 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
 //////////////////////////////////////////////////////////////////////////////*/
-#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COOPERATIVE_POS_ITERATOR
-#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COOPERATIVE_POS_ITERATOR
+#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_CO_POS_ITERATOR
+#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_CO_POS_ITERATOR
 
 
-#include <vector> // as default Cooperator
+#include <deque> // as default Cooperator
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
@@ -17,44 +17,44 @@
 
 namespace boost { namespace spirit { namespace repository
 {            
-    template <class Iterator, class Cooperator = std::vector<std::size_t> >
-    class buddy_cooperative_pos_iterator
+    template <class Iterator, class Cooperator = std::deque<std::size_t> >
+    class buddy_co_pos_iterator
       : public buddy_pos_iterator
-        <buddy_cooperative_pos_iterator<Iterator, Cooperator> >
+        <buddy_co_pos_iterator<Iterator, Cooperator> >
       , public boost::iterator_adaptor
         <
-            buddy_cooperative_pos_iterator<Iterator>  // Derived
-          , Iterator                                  // Base
-          , boost::use_default                        // Value
-          , boost::forward_traversal_tag              // CategoryOrTraversal
+            buddy_co_pos_iterator<Iterator>  // Derived
+          , Iterator                         // Base
+          , boost::use_default               // Value
+          , boost::forward_traversal_tag     // CategoryOrTraversal
         >
     {
-        typedef buddy_cooperative_pos_iterator this_type;
+        typedef buddy_co_pos_iterator this_type;
          
     public:
         
         typedef Cooperator cooperator_type;
         
-        buddy_cooperative_pos_iterator()
+        buddy_co_pos_iterator()
           : this_type::iterator_adaptor_()
           , _pos(), _co()
         {
         }
         
-        explicit buddy_cooperative_pos_iterator(Cooperator& co)
+        explicit buddy_co_pos_iterator(Cooperator& co)
           : this_type::iterator_adaptor_()
           , _pos(), _co(&co)
         {
             _co->resize(1, 0);
         } 
 
-        explicit buddy_cooperative_pos_iterator(Iterator const& base)
+        explicit buddy_co_pos_iterator(Iterator const& base)
           : this_type::iterator_adaptor_(base)
           , _pos(), _co()
         {
         }
         
-        buddy_cooperative_pos_iterator(Iterator const& base, Cooperator& co)
+        buddy_co_pos_iterator(Iterator const& base, Cooperator& co)
           : this_type::iterator_adaptor_(base)
           , _pos(), _co(&co)
         {

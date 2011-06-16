@@ -4,11 +4,11 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
 //////////////////////////////////////////////////////////////////////////////*/
-#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COOPERATIVE_ISTREAM_POS_ITERATOR
-#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COOPERATIVE_ISTREAM_POS_ITERATOR
+#ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_CO_ISTREAM_POS_ITERATOR
+#define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_CO_ISTREAM_POS_ITERATOR
 
 
-#include <vector> // as default Cooperator
+#include <deque> // as default Cooperator
 
 #include <boost/spirit/home/support/iterators/detail/ref_counted_policy.hpp>
 #if defined(BOOST_SPIRIT_DEBUG)
@@ -31,11 +31,11 @@ namespace boost { namespace spirit { namespace repository
     <
         typename Elem
       , typename Traits = std::char_traits<Elem>
-      , class Cooperator = std::vector<std::size_t>
+      , class Cooperator = std::deque<std::size_t>
     >
-    class basic_buddy_cooperative_istream_pos_iterator
+    class basic_buddy_co_istream_pos_iterator
       : public buddy_pos_iterator
-        <basic_buddy_cooperative_istream_pos_iterator<Elem, Traits, Cooperator> > 
+        <basic_buddy_co_istream_pos_iterator<Elem, Traits, Cooperator> > 
       , public multi_pass<
             std::basic_istream<Elem, Traits>
           , iterator_policies::default_policy<
@@ -62,28 +62,28 @@ namespace boost { namespace spirit { namespace repository
               , iterator_policies::split_std_deque> 
         > base_type;
         
-        typedef basic_buddy_cooperative_istream_pos_iterator this_type; 
+        typedef basic_buddy_co_istream_pos_iterator this_type; 
 
     public:
         
         typedef Cooperator cooperator_type;
         
-        basic_buddy_cooperative_istream_pos_iterator()
+        basic_buddy_co_istream_pos_iterator()
           : base_type(), _pos(), _co()
         {}
         
-        explicit basic_buddy_cooperative_istream_pos_iterator(Cooperator& co)
+        explicit basic_buddy_co_istream_pos_iterator(Cooperator& co)
           : base_type(), _pos(), _co(&co)
         {
             _co->resize(1, 0);
         }
 
-        explicit basic_buddy_cooperative_istream_pos_iterator
+        explicit basic_buddy_co_istream_pos_iterator
         (std::basic_istream<Elem, Traits>& x)
           : base_type(x), _pos(), _co()
         {}
         
-        basic_buddy_cooperative_istream_pos_iterator
+        basic_buddy_co_istream_pos_iterator
         (std::basic_istream<Elem, Traits>& x, Cooperator& co)
           : base_type(x), _pos(), _co(&co)
         {
@@ -130,8 +130,8 @@ namespace boost { namespace spirit { namespace repository
         Cooperator* _co;    // stores the start-positions of lines
     };
 
-    typedef basic_buddy_cooperative_istream_pos_iterator<char>
-        buddy_cooperative_istream_pos_iterator;
+    typedef basic_buddy_co_istream_pos_iterator<char>
+        buddy_co_istream_pos_iterator;
 
 }}}
 
