@@ -122,7 +122,6 @@ namespace boost { namespace spirit { namespace qi
             // Succeeds only when all parsers have succeeded.
             while (spirit::any_if_ns(elements, attr, cf, p))
             {
-                //std::cout << count << " ? " << fusion::result_of::size<Elements>::value << std::endl;
                 if (count == fusion::result_of::size<Elements>::value)
                     return true;
             }
