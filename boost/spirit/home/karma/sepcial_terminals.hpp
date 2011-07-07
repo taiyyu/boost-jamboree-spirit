@@ -4,13 +4,17 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
 //////////////////////////////////////////////////////////////////////////////*/
-#ifndef BOOST_SPIRIT_INCLUDE_QI_STRICT
-#define BOOST_SPIRIT_INCLUDE_QI_STRICT
+#ifndef BOOST_SPIRIT_KARMA_SPECIAL_TERMINALS
+#define BOOST_SPIRIT_KARMA_SPECIAL_TERMINALS
 
-#if defined(_MSC_VER)
-#pragma once
-#endif
+#include <boost/spirit/home/support/terminal.hpp>
 
-#include <boost/spirit/home/qi/directive/strict.hpp>
+namespace boost { namespace spirit { namespace _karma
+{
+    BOOST_SPIRIT_DEFINE_TERMINALS_NAME(
+        ( strict, strict_type )
+        ( relaxed, relaxed_type )
+    )
+}}}
 
 #endif

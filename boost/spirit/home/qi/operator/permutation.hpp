@@ -15,6 +15,7 @@
 #include <boost/spirit/home/qi/meta_compiler.hpp>
 #include <boost/spirit/home/qi/detail/permute_function.hpp>
 #include <boost/spirit/home/qi/detail/attributes.hpp>
+#include <boost/spirit/home/qi/detail/get_stricttag.hpp>
 #include <boost/spirit/home/support/algorithm/any_if_ns.hpp>
 #include <boost/spirit/home/support/detail/what_function.hpp>
 #include <boost/spirit/home/support/has_semantic_action.hpp>
@@ -162,7 +163,7 @@ namespace boost { namespace spirit { namespace qi
     struct make_composite<proto::tag::bitwise_xor, Elements, Modifiers>
     {
         static bool const strict =
-            has_modifier<Modifiers, tag::strict>::value;
+            detail::get_stricttag<Modifiers>::value;
             
         typedef permutation<Elements, strict> result_type;
         

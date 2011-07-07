@@ -12,7 +12,7 @@
 #include <boost/spirit/include/qi_numeric.hpp>
 #include <boost/spirit/include/qi_action.hpp>
 #include <boost/spirit/include/qi_nonterminal.hpp>
-#include <boost/spirit/include/qi_strict.hpp>
+#include <boost/spirit/include/qi_strict_relaxed.hpp>
 #include <boost/spirit/include/support_argument.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
