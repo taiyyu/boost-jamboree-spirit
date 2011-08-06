@@ -26,7 +26,7 @@ namespace boost { namespace spirit { namespace qi
     template <typename ID, typename Subject>
     struct expectation;
     
-    template <typename T> 
+    template <typename ID> 
     struct use_expectation
       : mpl::false_
     {};
