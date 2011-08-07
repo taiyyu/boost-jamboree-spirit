@@ -174,13 +174,9 @@ namespace boost { namespace spirit { namespace qi
             on_exit_type on_exit(first);
             for(;;)
             {
-                Iterator it = first;
                 try
                 {
-                    bool r = subject(it, last, context, skipper);
-                    if (r)
-                        first = it;
-                    return r;
+                    return subject(first, last, context, skipper);
                 }
                 catch (expectation_failure2<ID, Iterator> const& x)
                 {
@@ -192,7 +188,7 @@ namespace boost { namespace spirit { namespace qi
                           , ID>
                     params;
                     error_handler_result r = action;
-                    params args(it, last, x.first, x.id);
+                    params args(first, last, x.first, x.id);
                     f(args, context, r);
 
                     // The assertions below will fire if you are using a
