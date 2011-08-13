@@ -41,6 +41,8 @@ int main()
     {
         using qi::eoi;
         
+        BOOST_TEST(test("", seek[eoi]));
+        BOOST_TEST(test(" ", seek[eoi], space));
         BOOST_TEST(test("a", seek[eoi]));
         BOOST_TEST(test(" a", seek[eoi], space));
     } 

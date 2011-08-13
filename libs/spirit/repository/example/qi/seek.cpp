@@ -6,6 +6,7 @@
 //////////////////////////////////////////////////////////////////////////////*/
 
 //  [ Jamboree May 3, 2011 ]        first ver.
+//  [ Jamboree Aug 13, 2011 ]       minor change.
 
 
 #include <cstdlib>
@@ -22,22 +23,21 @@ int main(int argc, char *argv[])
     namespace qi = boost::spirit::qi;
     namespace ka = boost::spirit::karma;
     namespace repo = boost::spirit::repository;
-    using namespace boost::spirit::standard;
     //]
 
     std::string line;
-    typedef std::string::const_iterator iter;
+    typedef std::string::const_iterator iterator;
     
     while (std::cout << ">>> ", std::getline(std::cin, line))
     {   
         //[reference_qi_seek_vars
-        iter it = line.begin();
-        iter end = line.end();
+        iterator it = line.begin();
+        iterator end = line.end();
         std::vector<int> val;
         //]
         
         //[reference_qi_seek_parse
-        if (qi::phrase_parse(it, end, +repo::qi::seek["i" >> qi::int_], space, val))
+        if (qi::phrase_parse(it, end, +repo::qi::seek["#" >> qi::int_], qi::space, val))
         {
             std::cout << "-------------------------------- \n";
             std::cout << "Parsing succeeded, got: "
