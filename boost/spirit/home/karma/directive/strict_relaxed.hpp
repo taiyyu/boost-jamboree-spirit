@@ -1,6 +1,6 @@
 //  Copyright (c) 2001-2011 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #if !defined(SPIRIT_STRICT_KARMA_RELAXED_APR_22_2010_0959AM)
@@ -14,7 +14,7 @@
 #include <boost/spirit/home/karma/domain.hpp>
 #include <boost/spirit/home/karma/meta_compiler.hpp>
 #include <boost/spirit/home/karma/sepcial_terminals.hpp>
-     
+
 namespace boost { namespace spirit
 {
     ///////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ namespace boost { namespace spirit
       : mpl::true_ {};
 
     ///////////////////////////////////////////////////////////////////////////
-    // Don't add karma::tag::strict or karma::tag::relaxed if there is already 
+    // Don't add karma::tag::strict or karma::tag::relaxed if there is already
     // one of those in the modifier list
     template <typename Current>
     struct compound_modifier<Current, _karma::tag::strict
@@ -63,7 +63,7 @@ namespace boost { namespace spirit
         compound_modifier(Current const& current, _karma::tag::relaxed const&)
           : Current(current) {}
     };
-    
+
     namespace karma
     {
 #ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS

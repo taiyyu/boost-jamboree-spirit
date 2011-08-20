@@ -47,7 +47,7 @@ main()
         BOOST_TEST((!test("b", strict[char_('a') ^ char_('b') ^ char_('c')])));
         BOOST_TEST((!test("ab", strict[char_('a') ^ char_('b') ^ char_('c')])));
         BOOST_TEST((!test("ba", strict[char_('a') ^ char_('b') ^ char_('c')])));
-        
+
         BOOST_TEST((test("abc", strict[char_('a') ^ char_('b') ^ char_('c')])));
         BOOST_TEST((test("acb", strict[char_('a') ^ char_('b') ^ char_('c')])));
         BOOST_TEST((test("bca", strict[char_('a') ^ char_('b') ^ char_('c')])));
@@ -69,7 +69,7 @@ main()
         BOOST_TEST((!test_attr("123", strict[int_ ^ alpha], attr)));
         BOOST_TEST((at_c<0>(attr) == 123));
         BOOST_TEST((at_c<1>(attr) == 0));
-        
+
         at_c<0>(attr) = 0;
         BOOST_TEST((test_attr("123a", strict[int_ ^ alpha], attr)));
         BOOST_TEST((at_c<0>(attr) == 123));

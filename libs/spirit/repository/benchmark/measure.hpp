@@ -9,7 +9,7 @@
 // inline aggressively
 # pragma inline_recursion(on) // turn on inline recursion
 # pragma inline_depth(255)    // max inline depth
-# define _SECURE_SCL 0 
+# define _SECURE_SCL 0
 #endif
 
 #include "high_resolution_timer.hpp"
@@ -51,12 +51,12 @@ namespace test
         // or L3 cache, or main memory, you can increase the size of
         // this array.  1024 is an upper limit on the pipeline depth of
         // current vector machines.
-        
+
         const std::size_t number_of_accumulators = 1024;
         live_code = 0; // reset to zero
 
         Accumulator a[number_of_accumulators];
-        
+
         for (long iteration = 0; iteration < repeats; ++iteration)
         {
             for (Accumulator* ap = a;  ap < a + number_of_accumulators; ++ap)
@@ -90,7 +90,7 @@ namespace test
         hammer<Accumulator>(repeats);   // This time, we'll measure
         return time.elapsed();          // return the elapsed time
     }
-    
+
     template <class Accumulator>
     void report(char const* name, long const repeats)
     {
@@ -99,18 +99,18 @@ namespace test
         for (int i = 0; i < (20-int(strlen(name))); ++i)
             std::cout << ' ';
         std::cout << std::fixed << test::measure<Accumulator>(repeats) << " [s] ";
-        Accumulator acc; 
-        acc.benchmark(); 
+        Accumulator acc;
+        acc.benchmark();
         std::cout << std::hex << "{checksum: " << acc.val << "}";
         std::cout << std::flush << std::endl;
     }
-    
+
     struct base
     {
         base() : val(0) {}
         int val;    // This is needed to avoid dead-code elimination
     };
-    
+
 #define BOOST_SPIRIT_TEST_HAMMER(r, data, elem)                     \
     test::hammer<elem>(repeats);
     /***/

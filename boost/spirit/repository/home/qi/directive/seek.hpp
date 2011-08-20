@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_REPOSITORY_QI_SEEK
 #define BOOST_SPIRIT_REPOSITORY_QI_SEEK
@@ -37,12 +37,12 @@ namespace boost { namespace spirit
 
 
 namespace boost { namespace spirit { namespace repository {namespace qi
-{        
+{
 #ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using repository::seek;
 #endif
     using repository::seek_type;
-    
+
     template <typename Subject>
     struct seek_directive
       : spirit::qi::unary_parser<seek_directive<Subject> >
@@ -56,7 +56,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                 traits::attribute_of<subject_type, Context, Iterator>::type
             type;
         };
-            
+
         seek_directive(Subject const& subject)
           : subject(subject)
         {}
@@ -83,17 +83,17 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                 // fail only after subject fails & no input
                 if (it == last)
                     return false;
-            }         
+            }
         }
-        
+
         template <typename Context>
         info what(Context& context) const
         {
             return info("seek", subject.what(context));
         }
-        
+
         Subject subject;
-    };    
+    };
 }}}} // namespace boost::spirit::repository::qi
 
 
@@ -106,7 +106,7 @@ namespace boost { namespace spirit { namespace qi
     struct make_directive<repository::tag::seek, Subject, Modifiers>
     {
         typedef repository::qi::seek_directive<Subject> result_type;
-        
+
         result_type operator()(unused_type, Subject const& subject, unused_type) const
         {
             return result_type(subject);

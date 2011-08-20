@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 
 
@@ -34,68 +34,68 @@ int main()
     using namespace spirit_test;
     namespace qi = boost::spirit::qi;
     namespace phx = boost::phoenix;
-    using boost::spirit::repository::qi::seek;    
-    using boost::spirit::standard::space;  
+    using boost::spirit::repository::qi::seek;
+    using boost::spirit::standard::space;
 
-    // test eoi 
+    // test eoi
     {
         using qi::eoi;
-        
+
         BOOST_TEST(test("", seek[eoi]));
         BOOST_TEST(test(" ", seek[eoi], space));
         BOOST_TEST(test("a", seek[eoi]));
         BOOST_TEST(test(" a", seek[eoi], space));
-    } 
-        
-    // test literal finding 
+    }
+
+    // test literal finding
     {
         using qi::int_;
         using qi::char_;
-        
-        int i = 0; 
-        
+
+        int i = 0;
+
         BOOST_TEST(
             test_attr("!@#$%^&*KEY:123", seek["KEY:"] >> int_, i)
-            && i == 123 
+            && i == 123
         );
-    } 
-       
-    // test sequence finding 
+    }
+
+    // test sequence finding
     {
         using qi::int_;
         using qi::lit;
-        
+
         int i = 0;
-         
+
         BOOST_TEST(
             test_attr("!@#$%^&* KEY : 123", seek[lit("KEY") >> ':'] >> int_, i, space)
             && i == 123
         );
     }
- 
+
     // test attr finding
     {
         using qi::int_;
-        
-        std::vector<int> v; 
-        
-        BOOST_TEST( // expect partial match 
+
+        std::vector<int> v;
+
+        BOOST_TEST( // expect partial match
             test_attr("a06b78c3d", +seek[int_], v, false)
             && v[0] == 6 && v[1] == 78 && v[2] == 3
         );
     }
-    
-    // test action 
+
+    // test action
     {
-        using phx::ref; 
-       
+        using phx::ref;
+
         bool b = false;
-         
-        BOOST_TEST( // expect partial match  
+
+        BOOST_TEST( // expect partial match
             test("abcdefg", seek["def"][ref(b) = true], false)
             && b
         );
-    }        
+    }
 
     return boost::report_errors();
 }

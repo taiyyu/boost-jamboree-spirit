@@ -55,7 +55,7 @@ namespace boost { namespace spirit { namespace qi
                 Elements, Context, traits::sequence_attribute_transform
               , Iterator, qi::domain
             > strict_all_attributes;
-            
+
             // For non-strict:
             // Put all the element attributes in a tuple,
             // wrapping each element in a boost::optional.
@@ -65,7 +65,7 @@ namespace boost { namespace spirit { namespace qi
             > non_strict_all_attributes;
 
             // Decide which it is.
-            typedef typename 
+            typedef typename
                 mpl::eval_if_c
                 <
                     strict
@@ -85,7 +85,7 @@ namespace boost { namespace spirit { namespace qi
 
         permutation(Elements const& elements)
           : elements(elements) {}
-        
+
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
@@ -109,16 +109,16 @@ namespace boost { namespace spirit { namespace qi
             // wrap the attribute in a tuple if it is not a tuple
             typename traits::wrap_if_not_tuple<Attribute>::type attr(attr_);
 
-            return do_parse(attr, f, predicate(), mpl::bool_<strict>()); 
+            return do_parse(attr, f, predicate(), mpl::bool_<strict>());
         }
-        
+
         // strict parse
         template <typename Attribute, typename F, typename Pred>
         bool do_parse(Attribute& attr, F const& f, Pred p, mpl::true_) const
         {
             std::size_t count = 0;
             detail::counted<F> cf(f, count);
-            
+
             // We loop until there are no more successful parsers.
             // Succeeds only when all parsers have succeeded.
             while (spirit::any_if_ns(elements, attr, cf, p))
@@ -128,13 +128,13 @@ namespace boost { namespace spirit { namespace qi
             }
             return false;
         }
-        
+
         // non-strict parse
         template <typename Attribute, typename F, typename Pred>
         bool do_parse(Attribute& attr, F const& f, Pred p, mpl::false_) const
         {
             bool result = false;
-            
+
             // We loop until there are no more successful parsers.
             // Succeeds when at least one parser has succeeded.
             while (spirit::any_if_ns(elements, attr, f, p))
@@ -143,7 +143,7 @@ namespace boost { namespace spirit { namespace qi
             }
             return result;
         }
-        
+
         template <typename Context>
         info what(Context& context) const
         {
@@ -164,9 +164,9 @@ namespace boost { namespace spirit { namespace qi
     {
         static bool const strict =
             detail::get_stricttag<Modifiers>::value;
-            
+
         typedef permutation<Elements, strict> result_type;
-        
+
         result_type operator()(Elements const& elements, unused_type) const
         {
             return result_type(elements);

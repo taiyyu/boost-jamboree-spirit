@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_QI_GET_STRICTTAG
 #define BOOST_SPIRIT_QI_GET_STRICTTAG
@@ -19,7 +19,7 @@
 #include <boost/spirit/home/qi/sepcial_terminals.hpp>
 
 namespace boost { namespace spirit { namespace qi { namespace detail
-{ 
+{
     // the default mode for Qi is 'relaxed'
     template <
         typename Modifiers
@@ -42,7 +42,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
               , mpl::false_
               , get_stricttag<typename Modifiers::tail, mpl::true_>
             >
-        >::type 
+        >::type
     {};
 }}}}
 

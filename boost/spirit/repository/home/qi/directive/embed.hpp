@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_REPOSITORY_QI_EMBED
 #define BOOST_SPIRIT_REPOSITORY_QI_EMBED
@@ -47,41 +47,41 @@ namespace boost { namespace spirit
 
     // enables *lazy* embed(...)[...]
     template <>
-    struct use_lazy_directive<qi::domain, repository::tag::embed, 1> 
+    struct use_lazy_directive<qi::domain, repository::tag::embed, 1>
       : mpl::true_ {};
 }} // namespace boost::spirit
 
 
 namespace boost { namespace spirit { namespace repository {namespace qi
-{        
+{
 #ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using repository::embed;
 #endif
     using repository::embed_type;
-    
+
     template <typename Subject, typename Range>
     struct embed_directive
       : spirit::qi::unary_parser<embed_directive<Subject, Range> >
     {
         typedef Subject subject_type;
-        
+
         typedef typename
             call_traits<Range>::param_type
         range_param;
-        
+
         typedef typename
             range_iterator<Range const>::type
         embedded_iterator;
-        
+
         template <typename Context, typename /*Iterator*/>
         struct attribute
           : spirit::traits::attribute_of<subject_type, Context, embedded_iterator>
-        {}; 
-            
+        {};
+
         embed_directive(Subject const& subject, range_param range)
           : subject(subject), range(range)
         {}
-        
+
         template
         <
             typename Iterator, typename Context
@@ -95,20 +95,20 @@ namespace boost { namespace spirit { namespace repository {namespace qi
         ) const
         {
             embedded_iterator it(boost::begin(range));
-            
+
             return subject.parse(it, boost::end(range)
                 , context, skipper, attr);
         }
-        
+
         template <typename Context>
         info what(Context& context) const
         {
             return info("embed", subject.what(context));
         }
-        
+
         Subject subject;
         Range range;
-    };    
+    };
 }}}} // namespace boost::spirit::repository::qi
 
 
@@ -125,7 +125,7 @@ namespace boost { namespace spirit { namespace qi
     >
     {
         typedef repository::qi::embed_directive<Subject, Range> result_type;
-        
+
         template <typename Terminal>
         result_type operator()(
             Terminal const& term, Subject const& subject, unused_type) const

@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_CO_POS_ITERATOR
 #define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_CO_POS_ITERATOR
@@ -16,7 +16,7 @@
 
 
 namespace boost { namespace spirit { namespace repository
-{            
+{
     template <class Iterator, class Cooperator = std::deque<std::size_t> >
     class buddy_co_pos_iterator
       : public buddy_pos_iterator
@@ -30,30 +30,30 @@ namespace boost { namespace spirit { namespace repository
         >
     {
         typedef buddy_co_pos_iterator this_type;
-         
+
     public:
-        
+
         typedef Cooperator cooperator_type;
-        
+
         buddy_co_pos_iterator()
           : this_type::iterator_adaptor_()
           , _pos(), _co()
         {
         }
-        
+
         explicit buddy_co_pos_iterator(Cooperator& co)
           : this_type::iterator_adaptor_()
           , _pos(), _co(&co)
         {
             _co->resize(1, 0);
-        } 
+        }
 
         explicit buddy_co_pos_iterator(Iterator const& base)
           : this_type::iterator_adaptor_(base)
           , _pos(), _co()
         {
         }
-        
+
         buddy_co_pos_iterator(Iterator const& base, Cooperator& co)
           : this_type::iterator_adaptor_(base)
           , _pos(), _co(&co)
@@ -65,9 +65,9 @@ namespace boost { namespace spirit { namespace repository
         {
             return _pos;
         }
-        
+
     private:
-        
+
         friend class boost::iterator_core_access;
 
         void increment()
@@ -75,13 +75,13 @@ namespace boost { namespace spirit { namespace repository
             ++_pos;
             ++this->base_reference();
         }
-        
+
         template<class>
         friend class buddy_component;
-        
+
         void inc_row()
         {
-            // assert(_co); 
+            // assert(_co);
             if (_co->back() < _pos)
                 _co->push_back(_pos);
         }

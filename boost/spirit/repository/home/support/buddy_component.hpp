@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COMPONENT
 #define BOOST_SPIRIT_REPOSITORY_SUPPORT_BUDDY_COMPONENT
@@ -19,7 +19,7 @@ namespace boost { namespace spirit { namespace repository
     struct buddy_component
     {
     protected:
-        
+
         template<class Iterator>
         static inline
         typename enable_if<traits::is_buddy_pos_iterator<Iterator> >::type
@@ -33,7 +33,7 @@ namespace boost { namespace spirit { namespace repository
         typename enable_if<traits::is_buddy_pos_iterator<Iterator> >::type
         inc_row(Iterator& it)
         {
-            it.inc_row(); 
+            it.inc_row();
         }
 
         template<class Iterator>
@@ -41,7 +41,7 @@ namespace boost { namespace spirit { namespace repository
         typename disable_if<traits::is_buddy_pos_iterator<Iterator> >::type
         add_col(Iterator&, std::size_t)
         {}
- 
+
         template<class Iterator>
         static inline
         typename disable_if<traits::is_buddy_pos_iterator<Iterator> >::type

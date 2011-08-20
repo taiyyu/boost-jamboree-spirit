@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_REPOSITORY_QI_CHOICES
 #define BOOST_SPIRIT_REPOSITORY_QI_CHOICES
@@ -13,7 +13,7 @@
 #endif
 
 
-#include <deque> 
+#include <deque>
 
 #include <boost/config.hpp>
 #include <boost/function.hpp>
@@ -115,8 +115,8 @@ namespace boost { namespace spirit { namespace repository {namespace qi
               , skipper_type const& skipper
             )>
         function_type;
-        
-        typedef std::deque<function_type> functions_type; 
+
+        typedef std::deque<function_type> functions_type;
 
         typedef typename
             mpl::if_<
@@ -125,7 +125,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
               , tag::char_code<tag::encoding, encoding_type>
             >::type
         encoding_modifier_type;
-        
+
         explicit choices(std::string const& name_ = "unnamed-choices")
           : base_type(terminal::make(reference_(*this)))
           , name_(name_)
@@ -138,7 +138,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
           , fs(choice.fs)
         {
         }
-        
+
         template <typename Auto, typename Expr>
         void define_next(Expr const& expr, mpl::false_)
         {
@@ -155,25 +155,25 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                 spirit::qi::detail::bind_parser<Auto>(
                     compile<spirit::qi::domain>(expr, encoding_modifier_type())));
         }
-        
+
         void clear()
         {
             fs.clear();
         }
-        
+
         struct adder;
-        
+
         adder next()
         {
             return adder(this);
         }
-        
+
         template <typename /*Context*/, typename /*Iterator*/>
         struct attribute
         {
             typedef attr_type type;
         };
-        
+
         template <typename Context, typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& /*context*/, Skipper const& skipper
@@ -191,18 +191,18 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                 typename make_attribute::type, attr_type, spirit::qi::domain>
             transform;
 
-            typename functions_type::const_iterator it(fs.begin()), end(fs.end()); 
+            typename functions_type::const_iterator it(fs.begin()), end(fs.end());
 
             for ( ; it != end; ++it)
             {
                 typename make_attribute::type made_attr = make_attribute::call(attr);
                 typename transform::type attr_ = transform::pre(made_attr);
-    
+
                 // If you are seeing a compilation error here, you are probably
                 // trying to use a rule or a grammar which has inherited
                 // attributes, without passing values for them.
                 context_type context(attr_);
-                
+
                 // If you are seeing a compilation error here stating that the
                 // fourth parameter can't be converted to a required target type
                 // then you are probably trying to use choices with
@@ -214,10 +214,10 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                     traits::post_transform(attr, attr_);
                     return true;
                 }
-    
+
                 // inform attribute transformation of failed choice
                 traits::fail_transform(attr, attr_);
-            } 
+            }
             return false;
         }
 
@@ -239,7 +239,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                 typename make_attribute::type, attr_type, spirit::qi::domain>
             transform;
 
-            typename functions_type::const_iterator it(fs.begin()), end(fs.end()); 
+            typename functions_type::const_iterator it(fs.begin()), end(fs.end());
 
             for ( ; it != end; ++it)
             {
@@ -268,7 +268,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
             }
             return false;
         }
-        
+
         template <typename Context>
         info what(Context& /*context*/) const
         {
@@ -283,35 +283,35 @@ namespace boost { namespace spirit { namespace repository {namespace qi
         {
             return name_;
         }
-        
+
         struct adder
         {
             explicit adder(choices* that)
               : that(that)
             {}
-            
+
             template <typename Expr>
             void operator=(Expr const& expr)
             {
                 that->define_next<mpl::false_>(
                     expr, traits::matches<spirit::qi::domain, Expr>());
             }
-            
+
             template <typename Expr>
             void operator%=(Expr const& expr)
             {
                 that->define_next<mpl::true_>(
                     expr, traits::matches<spirit::qi::domain, Expr>());
             }
-            
+
             choices* const that;
         };
-        
+
         // bring in the operator() overloads
         choices const& get_parameterized_subject() const { return *this; }
         typedef choices parameterized_subject_type;
         #include <boost/spirit/home/qi/nonterminal/detail/fcall.hpp>
-        
+
         std::string name_;
         functions_type fs;
     };
@@ -341,4 +341,4 @@ namespace boost { namespace spirit { namespace traits
 
 
 #endif
- 
+

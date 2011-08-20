@@ -1,6 +1,6 @@
 //  Copyright (c) 2001-2010 Hartmut Kaiser
-// 
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #if !defined(BOOST_SPIRIT_KARMA_TEST_FEB_23_2007_1221PM)
@@ -27,7 +27,7 @@ namespace spirit_test
         }
 
         template<typename T>
-        static void print() 
+        static void print()
         {
             std::cout << typeid(T).name() << std::endl;
         }
@@ -95,7 +95,7 @@ namespace spirit_test
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Char, typename Generator, typename Attribute>
-    inline bool test(Char const *expected, Generator const& g, 
+    inline bool test(Char const *expected, Generator const& g,
         Attribute const &attr)
     {
         namespace karma = boost::spirit::karma;
@@ -114,7 +114,7 @@ namespace spirit_test
     }
 
     template <typename Char, typename Generator, typename Attribute>
-    inline bool test(std::basic_string<Char> const& expected, Generator const& g, 
+    inline bool test(std::basic_string<Char> const& expected, Generator const& g,
         Attribute const &attr)
     {
         namespace karma = boost::spirit::karma;
@@ -134,7 +134,7 @@ namespace spirit_test
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Char, typename Generator, typename Delimiter>
-    inline bool test_delimited(Char const *expected, Generator const& g, 
+    inline bool test_delimited(Char const *expected, Generator const& g,
         Delimiter const& d)
     {
         namespace karma = boost::spirit::karma;
@@ -153,7 +153,7 @@ namespace spirit_test
     }
 
     template <typename Char, typename Generator, typename Delimiter>
-    inline bool test_delimited(std::basic_string<Char> const& expected, 
+    inline bool test_delimited(std::basic_string<Char> const& expected,
         Generator const& g, Delimiter const& d)
     {
         namespace karma = boost::spirit::karma;
@@ -174,7 +174,7 @@ namespace spirit_test
     ///////////////////////////////////////////////////////////////////////////
     template <typename Char, typename Generator, typename Attribute,
         typename Delimiter>
-    inline bool test_delimited(Char const *expected, Generator const& g, 
+    inline bool test_delimited(Char const *expected, Generator const& g,
         Attribute const &attr, Delimiter const& d)
     {
         namespace karma = boost::spirit::karma;
@@ -194,7 +194,7 @@ namespace spirit_test
 
     template <typename Char, typename Generator, typename Attribute,
         typename Delimiter>
-    inline bool test_delimited(std::basic_string<Char> const& expected, 
+    inline bool test_delimited(std::basic_string<Char> const& expected,
         Generator const& g, Attribute const &attr, Delimiter const& d)
     {
         namespace karma = boost::spirit::karma;
@@ -214,8 +214,8 @@ namespace spirit_test
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Generator>
-    inline bool 
-    binary_test(char const *expected, std::size_t size, 
+    inline bool
+    binary_test(char const *expected, std::size_t size,
         Generator const& g)
     {
         namespace karma = boost::spirit::karma;
@@ -234,8 +234,8 @@ namespace spirit_test
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Generator, typename Attribute>
-    inline bool 
-    binary_test(char const *expected, std::size_t size, 
+    inline bool
+    binary_test(char const *expected, std::size_t size,
         Generator const& g, Attribute const &attr)
     {
         namespace karma = boost::spirit::karma;
@@ -254,8 +254,8 @@ namespace spirit_test
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Generator, typename Delimiter>
-    inline bool 
-    binary_test_delimited(char const *expected, std::size_t size, 
+    inline bool
+    binary_test_delimited(char const *expected, std::size_t size,
         Generator const& g, Delimiter const& d)
     {
         namespace karma = boost::spirit::karma;
@@ -274,8 +274,8 @@ namespace spirit_test
 
     ///////////////////////////////////////////////////////////////////////////
     template <typename Generator, typename Attribute, typename Delimiter>
-    inline bool 
-    binary_test_delimited(char const *expected, std::size_t size, 
+    inline bool
+    binary_test_delimited(char const *expected, std::size_t size,
         Generator const& g, Attribute const &attr, Delimiter const& d)
     {
         namespace karma = boost::spirit::karma;

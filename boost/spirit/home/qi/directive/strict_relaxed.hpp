@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_QI_STRICT_RELAXED
 #define BOOST_SPIRIT_QI_STRICT_RELAXED
@@ -31,7 +31,7 @@ namespace boost { namespace spirit
       : mpl::true_ {};
 
     ///////////////////////////////////////////////////////////////////////////
-    // Do add qi::tag::strict if current modifier's non-strict 
+    // Do add qi::tag::strict if current modifier's non-strict
     template <typename Current>
     struct compound_modifier
     <
@@ -48,8 +48,8 @@ namespace boost { namespace spirit
       : Current, _qi::tag::strict
     {
         typedef Current tail;
-        typedef _qi::tag::strict head; 
-        
+        typedef _qi::tag::strict head;
+
         compound_modifier()
           : Current(), head() {}
 
@@ -57,15 +57,15 @@ namespace boost { namespace spirit
           : Current(current), head(new_) {}
     };
 
-    // Do add qi::tag::relaxed if current modifier's strict 
+    // Do add qi::tag::relaxed if current modifier's strict
     template <typename Current>
     struct compound_modifier<Current, _qi::tag::relaxed
           , typename enable_if<qi::detail::get_stricttag<Current> >::type>
       : Current, _qi::tag::relaxed
     {
         typedef Current tail;
-        typedef _qi::tag::relaxed head; 
-        
+        typedef _qi::tag::relaxed head;
+
         compound_modifier()
           : Current(), head() {}
 
@@ -81,8 +81,8 @@ namespace boost { namespace spirit
     template <>
     struct is_modifier_directive<qi::domain, _qi::tag::relaxed>
       : mpl::true_ {};
-      
-    namespace qi 
+
+    namespace qi
     {
 #ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
         using boost::spirit::_qi::strict;

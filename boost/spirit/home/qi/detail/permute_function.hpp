@@ -84,14 +84,14 @@ namespace boost { namespace spirit { namespace qi { namespace detail
         // silence MSVC warning C4512: assignment operator could not be generated
         permute_function& operator= (permute_function const&);
     };
-    
+
     template <typename F>
     struct counted
     {
         explicit counted(F f, std::size_t& count)
           : f(f), count(count)
         {}
-        
+
         template <typename Component, typename Attribute>
         bool operator()(Component const& component, Attribute& attr)
         {
@@ -99,7 +99,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             count += ret;
             return ret;
         }
-        
+
         template <typename Component>
         bool operator()(Component const& component)
         {
@@ -107,10 +107,10 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             count += ret;
             return ret;
         }
-        
+
         F f;
         std::size_t& count;
-        
+
     private:
         // silence MSVC warning C4512: assignment operator could not be generated
         counted& operator= (counted const&);

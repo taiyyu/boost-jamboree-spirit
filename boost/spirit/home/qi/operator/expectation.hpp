@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_QI_EXPECTATION
 #define BOOST_SPIRIT_QI_EXPECTATION
@@ -25,8 +25,8 @@ namespace boost { namespace spirit { namespace qi
 {
     template <typename ID, typename Subject>
     struct expectation;
-    
-    template <typename ID> 
+
+    template <typename ID>
     struct use_expectation
       : mpl::false_
     {};
@@ -43,19 +43,19 @@ namespace boost { namespace spirit { namespace qi { namespace detail
         struct impl : proto::transform_impl<Expr, State, Data>
         {
             // Strangely proto::result_of::value not works, we resort to
-            // BOOST_TYPEOF. 
+            // BOOST_TYPEOF.
             typedef
                 BOOST_TYPEOF(proto::value(proto::child_c<0>(declval<Expr>())))
             id_type;
-            
+
             typedef typename Grammar::
                 template result<Grammar(
                     typename proto::result_of::child_c<Expr, 1>::type
                   , State, Data)>::type
             subject_type;
-            
+
             typedef expectation<id_type, subject_type> result_type;
-            
+
             result_type operator()
             (
                 typename impl::expr_param expr
@@ -71,8 +71,8 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             }
         };
     };
-    
-    struct is_expectation; // declaration only 
+
+    struct is_expectation; // declaration only
 }}}} // namespace boost::spirit::qi::detail
 
 
@@ -83,7 +83,7 @@ namespace boost { namespace proto { namespace detail
       : spirit::qi::use_expectation
         <
             typename remove_const<typename remove_reference<T>::type>::type
-        > 
+        >
     {};
 }}} // namespace boost::proto::detail
 
@@ -91,10 +91,10 @@ namespace boost { namespace proto { namespace detail
 namespace boost { namespace spirit
 {
     template <>
-    template <> 
+    template <>
     struct meta_compiler<qi::domain>::cases::case_<proto::tag::divides>
       : proto::or_
-        < 
+        <
             proto::when
             <
                 proto::divides
@@ -104,11 +104,11 @@ namespace boost { namespace spirit
                 >
               , qi::detail::make_expectation<meta_grammar>
             >
-          , proto::otherwise // fallback 
+          , proto::otherwise // fallback
             <
                 detail::make_binary<qi::domain, proto::tag::divides, meta_grammar>
             >
-        > 
+        >
     {};
 }} // namespace boost::spirit
 
@@ -117,19 +117,19 @@ namespace boost { namespace spirit { namespace qi
 {
     template <typename ID, typename Subject>
     struct expectation
-      : unary_parser<expectation<ID, Subject> > 
+      : unary_parser<expectation<ID, Subject> >
     {
         typedef Subject subject_type;
-        
+
         template <typename Context, typename Iterator>
         struct attribute
           : traits::attribute_of<subject_type, Context, Iterator>
         {};
-        
+
         expectation(ID id, Subject const& subject)
           : id(id), subject(subject)
         {}
-        
+
         template
         <
             typename Iterator, typename Context
@@ -142,28 +142,28 @@ namespace boost { namespace spirit { namespace qi
           , Attribute& attr
         ) const
         {
-            // flush any multi_pass iterator we might be acting on 
+            // flush any multi_pass iterator we might be acting on
             spirit::traits::clear_queue(first);
-            
+
             if (subject.parse(first, last, context, skipper, attr))
                 return true;
-                 
+
             boost::throw_exception(
                 expectation_failure2<ID, Iterator>(id, first, last));
 #   if defined(BOOST_NO_EXCEPTIONS)
             return false;            // for systems not supporting exceptions
 #   endif
         }
-        
+
         template <typename Context>
         info what(Context& context) const
         {
             return info("expectation", subject.what(context));
         }
-        
+
         ID id;
         Subject subject;
-    };    
+    };
 }}} // namespace boost::spirit::qi
 
 
@@ -192,6 +192,6 @@ namespace boost { namespace spirit { namespace qi                               
     {};                                                                         \
 }}}
 /***/
- 
+
 
 #endif

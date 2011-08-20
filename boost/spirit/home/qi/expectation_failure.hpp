@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_QI_EXPECTATION_FAILURE
 #define BOOST_SPIRIT_QI_EXPECTATION_FAILURE
@@ -26,7 +26,7 @@ namespace boost { namespace spirit { namespace qi
         Iterator last;
         info what_;
     };
-    
+
     template <typename ID, typename Iterator>
     struct expectation_failure2 : std::runtime_error
     {

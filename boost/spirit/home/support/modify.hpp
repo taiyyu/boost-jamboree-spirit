@@ -34,8 +34,8 @@ namespace boost { namespace spirit
     struct compound_modifier : Current, New
     {
         typedef Current tail;
-        typedef New head; 
-        
+        typedef New head;
+
         compound_modifier()
           : Current(), New() {}
 
@@ -48,7 +48,7 @@ namespace boost { namespace spirit
     struct compound_modifier<
         Current, New, typename enable_if<has_modifier<Current, New> >::type>
       : Current
-    {        
+    {
         compound_modifier()
           : Current() {}
 
@@ -62,7 +62,7 @@ namespace boost { namespace spirit
     {
         typedef unused_type tail;
         typedef New head;
-        
+
         compound_modifier()
           : New() {}
 

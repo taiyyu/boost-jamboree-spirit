@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_REPOSITORY_QI_BUDDY_SPACE
 #define BOOST_SPIRIT_REPOSITORY_QI_BUDDY_SPACE
@@ -28,7 +28,7 @@ namespace boost { namespace spirit { namespace repository
     namespace tag
     {
         template <typename CharEncoding>
-        struct buddy_space_parser 
+        struct buddy_space_parser
         {
             BOOST_SPIRIT_IS_TAG()
         };
@@ -39,7 +39,7 @@ namespace boost { namespace spirit { namespace repository
         ///////////////////////////////////////////////////////////////////////
         // This one is the class that the user can instantiate directly in
         // order to create a customized buddy_space parser
-        template <typename CharEncoding = spirit::char_encoding::standard> 
+        template <typename CharEncoding = spirit::char_encoding::standard>
         struct buddy_space_parser
           : spirit::terminal<tag::buddy_space_parser<CharEncoding> >
         {};
@@ -48,13 +48,13 @@ namespace boost { namespace spirit { namespace repository
 
 
 namespace boost { namespace spirit
-{    
+{
     ///////////////////////////////////////////////////////////////////////////
     // Enablers
     ///////////////////////////////////////////////////////////////////////////
     template <typename CharEncoding>
     struct use_terminal<qi::domain, repository::tag::buddy_space_parser<CharEncoding> >
-      : mpl::true_ {};   
+      : mpl::true_ {};
 }} // namespace boost::spirit
 
 
@@ -62,18 +62,18 @@ namespace boost { namespace spirit { namespace repository {namespace qi
 {
     template <typename CharEncoding>
     struct any_buddy_space_parser
-      : buddy_component<any_buddy_space_parser<CharEncoding> > 
+      : buddy_component<any_buddy_space_parser<CharEncoding> >
       , spirit::qi::primitive_parser<any_buddy_space_parser<CharEncoding> >
     {
         typedef CharEncoding char_encoding;
         typedef spirit::tag::space classification;
-        
+
         template <typename Context, typename Iterator>
         struct attribute
         {
             typedef unused_type type;
         };
-        
+
         template <typename CharParam>
         bool test(CharParam ch) const
         {
@@ -81,7 +81,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
             return spirit::traits::ischar<CharParam, char_encoding>::call(ch)
                    && classify<char_encoding>::is(classification(), ch);
         }
-        
+
         template<class Iterator>
         typename enable_if<repository::traits::is_buddy_pos_iterator<Iterator> >::type
         buddy_check_pos(Iterator& first, Iterator const& last) const
@@ -100,10 +100,10 @@ namespace boost { namespace spirit { namespace repository {namespace qi
             }
 
             if (matched)
-                inc_row(it); 
+                inc_row(it);
             else
                 ++it;
-                
+
             first = it;
         }
 
@@ -119,7 +119,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
         bool parse(Iterator& first, Iterator const& last
           , Context& /*context*/, Skipper const& skipper
           , Attribute& /*attr*/) const
-        {            
+        {
             spirit::qi::skip_over(first, last, skipper);
             if (first != last && test(*first))
             {

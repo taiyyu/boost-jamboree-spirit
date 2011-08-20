@@ -2,14 +2,14 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_QI_SPECIAL_TERMINALS
 #define BOOST_SPIRIT_QI_SPECIAL_TERMINALS
 
 #include <boost/spirit/home/support/terminal.hpp>
 
-namespace boost { namespace spirit { namespace _qi 
+namespace boost { namespace spirit { namespace _qi
 {
     BOOST_SPIRIT_DEFINE_TERMINALS_NAME(
         ( strict, strict_type )

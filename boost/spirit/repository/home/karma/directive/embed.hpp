@@ -2,7 +2,7 @@
     Copyright (c) 2011 Jamboree
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)    
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //////////////////////////////////////////////////////////////////////////////*/
 #ifndef BOOST_SPIRIT_REPOSITORY_KARMA_EMBED
 #define BOOST_SPIRIT_REPOSITORY_KARMA_EMBED
@@ -43,38 +43,38 @@ namespace boost { namespace spirit
 
     // enables *lazy* embed(...)[...]
     template <>
-    struct use_lazy_directive<karma::domain, repository::tag::embed, 1> 
+    struct use_lazy_directive<karma::domain, repository::tag::embed, 1>
       : mpl::true_ {};
 }} // namespace boost::spirit
 
 
 namespace boost { namespace spirit { namespace repository {namespace karma
-{        
+{
 #ifndef BOOST_SPIRIT_NO_PREDEFINED_TERMINALS
     using repository::embed;
 #endif
     using repository::embed_type;
-    
+
     template <typename Subject, typename Stuff>
     struct embed_directive
       : spirit::karma::unary_generator<embed_directive<Subject, Stuff> >
     {
         typedef Subject subject_type;
-        
+
         typedef typename
             call_traits<Stuff>::param_type
         stuff_param;
-        
+
         template <typename Context, typename /*Iterator*/>
         struct attribute
         {
             typedef unused_type type;
         };
-            
+
         embed_directive(Subject const& subject, stuff_param stuff)
           : subject(subject), stuff(stuff)
         {}
-        
+
         template
         <
             typename OutputIterator, typename Context
@@ -88,16 +88,16 @@ namespace boost { namespace spirit { namespace repository {namespace karma
         {
             return subject.generate(sink, ctx, d, stuff);
         }
-        
+
         template <typename Context>
         info what(Context& context) const
         {
             return info("embed", subject.what(context));
         }
-        
+
         Subject subject;
         Stuff stuff;
-    };    
+    };
 }}}} // namespace boost::spirit::repository::karma
 
 
@@ -114,7 +114,7 @@ namespace boost { namespace spirit { namespace karma
     >
     {
         typedef repository::karma::embed_directive<Subject, Stuff> result_type;
-        
+
         template <typename Terminal>
         result_type operator()(
             Terminal const& term, Subject const& subject, unused_type) const
