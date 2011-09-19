@@ -71,21 +71,7 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             }
         };
     };
-
-    struct is_expectation; // declaration only
 }}}} // namespace boost::spirit::qi::detail
-
-
-namespace boost { namespace proto { namespace detail
-{
-    template <typename T>
-    struct terminal_matches<T, spirit::qi::detail::is_expectation>
-      : spirit::qi::use_expectation
-        <
-            typename remove_const<typename remove_reference<T>::type>::type
-        >
-    {};
-}}} // namespace boost::proto::detail
 
 
 namespace boost { namespace spirit
@@ -99,7 +85,11 @@ namespace boost { namespace spirit
             <
                 proto::divides
                 <
-                    proto::terminal<qi::detail::is_expectation>
+                    proto::and_
+                    <
+                        proto::terminal<proto::_>
+                      , proto::if_<qi::use_expectation<proto::_value>()>
+                    >
                   , meta_grammar
                 >
               , qi::detail::make_expectation<meta_grammar>
