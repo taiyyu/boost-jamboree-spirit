@@ -42,7 +42,7 @@ namespace boost { namespace spirit
     struct use_directive<qi::domain
         , terminal_ex<repository::tag::seek, fusion::vector1<T> > >
       : mpl::true_ {};
-      
+
     // enables *lazy* seek(stride)[...]
     template <>
     struct use_lazy_directive<qi::domain, repository::tag::seek, 1>
@@ -108,7 +108,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
 
         Subject subject;
     };
-    
+
     template <typename Subject>
     struct strided_seek_directive
       : spirit::qi::unary_parser<strided_seek_directive<Subject> >
@@ -141,7 +141,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
         {
             typedef typename boost::BOOST_ITERATOR_CATEGORY<Iterator>::type
                 tag;
-            
+
             return this->parse_impl(first, last, context, skipper, attr, tag());
         }
 
@@ -160,7 +160,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
             for (Iterator start(first); ; )
             {
                 Iterator it(start);
-                
+
                 if (subject.parse(it, last, context, skipper, attr))
                 {
                     first = it;
@@ -187,7 +187,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
             for (Iterator start(first); ; )
             {
                 Iterator it(start);
-                
+
                 if (subject.parse(it, last, context, skipper, attr))
                 {
                     first = it;
@@ -199,7 +199,7 @@ namespace boost { namespace spirit { namespace repository {namespace qi
                         return false;
             }
         }
-                
+
         template <typename Context>
         info what(Context& context) const
         {
@@ -227,7 +227,7 @@ namespace boost { namespace spirit { namespace qi
             return result_type(subject);
         }
     };
-    
+
     template <typename T, typename Subject, typename Modifiers>
     struct make_directive
     <
@@ -253,7 +253,7 @@ namespace boost { namespace spirit { namespace traits
     template <typename Subject>
     struct has_semantic_action<repository::qi::seek_directive<Subject> >
       : unary_has_semantic_action<Subject> {};
-      
+
     template <typename Subject>
     struct has_semantic_action<repository::qi::strided_seek_directive<Subject> >
       : unary_has_semantic_action<Subject> {};
@@ -264,7 +264,7 @@ namespace boost { namespace spirit { namespace traits
     struct handles_container<repository::qi::seek_directive<Subject>, Attribute
         , Context, Iterator>
       : unary_handles_container<Subject, Attribute, Context, Iterator> {};
-      
+
     template <typename Subject, typename Attribute, typename Context
         , typename Iterator>
     struct handles_container<repository::qi::strided_seek_directive<Subject>, Attribute

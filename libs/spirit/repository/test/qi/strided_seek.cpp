@@ -74,15 +74,15 @@ int main()
         );
     }
 
-    // test attr finding
+    // test attr
     {
         using qi::int_;
 
-        std::vector<int> v;
+        int i = 0;
 
         BOOST_TEST( // expect partial match
-            test_attr("6aaa78bb3cccdddd", +seek(4)[int_], v, false)
-            && v[0] == 6 && v[1] == 78 && v[2] == 3
+            test_attr("aaaa95bb", seek(4)[int_], i, false)
+            && i == 95
         );
     }
 
@@ -98,16 +98,16 @@ int main()
         );
     }
 
-    // test lazy arg
+    // test lazy stride
     {
         using phx::ref;
         using qi::byte_;
         using qi::_1;
-        
-        boost::uint8_t b = 256; // a value which must fail
-        
-        BOOST_TEST(test("\x04""1234#567", byte_[ref(b) = _1] >> seek(ref(b))['#']));
+
+        boost::uint8_t b = 0xff; // a value which must fail
+
+        BOOST_TEST(test("\x04""1234#567", byte_[ref(b) = _1] >> seek(4)['#'], false));
     }
-    
+
     return boost::report_errors();
 }
