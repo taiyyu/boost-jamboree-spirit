@@ -22,4 +22,40 @@ namespace boost { namespace spirit { namespace repository
 
 }}}
 
+/***/
+
+namespace boost { namespace spirit
+{
+    // We handle the lazy version ourselves, bypassing the normal 'lazy_terminal'
+    // infrastructure.
+    template <typename A0>
+    struct make_lazy<repository::embed_type, A0>
+    {
+        typedef typename
+            proto::terminal<
+                terminal_ex<
+                    repository::embed_type::terminal_type
+                  , typename detail::result_of::make_vector<
+                        typename detail::to_nonlazy_arg<A0>::type
+                    >::type
+                >
+            >::type
+        result_type;
+
+        typedef result_type type;
+
+        result_type
+        operator()(repository::embed_type f, A0 const& _0) const
+        {
+            typedef typename result_type::proto_child0 child_type;
+            return result_type::make(
+                child_type(
+                    detail::make_vector(_0)
+                  , f.proto_base().child0)
+            );
+        }
+    };
+}}
+
+
 #endif

@@ -45,10 +45,9 @@ namespace boost { namespace spirit
           , terminal_ex<repository::tag::embed, fusion::vector1<Range> > >
       : mpl::true_ {};
 
-    // enables *lazy* embed(...)[...]
-    template <>
-    struct use_lazy_directive<qi::domain, repository::tag::embed, 1>
-      : mpl::true_ {};
+    // *lazy* embed(...)[...]
+    // @note: we deal with the laziness ourselves.
+
 }} // namespace boost::spirit
 
 
@@ -124,13 +123,48 @@ namespace boost { namespace spirit { namespace qi
       , Subject, Modifiers
     >
     {
-        typedef repository::qi::embed_directive<Subject, Range> result_type;
+        template <bool is_lazy, typename Dummy = void>
+        struct result_helper // non-lazy
+        {
+            typedef repository::qi::embed_directive<Subject, Range> type;
+
+            template <typename Terminal>
+            static inline
+            type make(
+                Terminal const& term, Subject const& subject, unused_type)
+            {
+                return type(subject, fusion::at_c<0>(term.args));
+            }
+        };
+
+        template <typename Dummy>
+        struct result_helper<true, Dummy> // lazy
+        {
+            typedef
+                phoenix::detail::expression::function_eval<repository::embed_type, Range>
+            actor_gen;
+
+            typedef lazy_directive<typename actor_gen::type, Subject, Modifiers> type;
+
+            template <typename Terminal>
+            static inline
+            type make(
+                Terminal const& term, Subject const& subject, Modifiers const& modifiers)
+            {
+                return type(actor_gen::make(term.term, fusion::at_c<0>(term.args))
+                    , subject, modifiers);
+            }
+        };
+
+        typedef result_helper<phoenix::is_actor<Range>::value> result_gen;
+
+        typedef typename result_gen::type result_type;
 
         template <typename Terminal>
-        result_type operator()(
-            Terminal const& term, Subject const& subject, unused_type) const
+        result_type operator()(Terminal const& term, Subject const& subject
+            , Modifiers const& modifiers) const
         {
-            return result_type(subject, fusion::at_c<0>(term.args));
+            return result_gen::make(term, subject, modifiers);
         }
     };
 }}} // namespace boost::spirit::qi

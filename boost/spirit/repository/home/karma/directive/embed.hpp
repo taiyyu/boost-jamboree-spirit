@@ -41,10 +41,9 @@ namespace boost { namespace spirit
           , terminal_ex<repository::tag::embed, fusion::vector1<Stuff> > >
       : mpl::true_ {};
 
-    // enables *lazy* embed(...)[...]
-    template <>
-    struct use_lazy_directive<karma::domain, repository::tag::embed, 1>
-      : mpl::true_ {};
+    // *lazy* embed(...)[...]
+    // @note: we deal with the laziness ourselves.
+
 }} // namespace boost::spirit
 
 
@@ -75,6 +74,34 @@ namespace boost { namespace spirit { namespace repository {namespace karma
           : subject(subject), stuff(stuff)
         {}
 
+        // lazy
+        template
+        <
+            typename OutputIterator, typename Context, typename Delimiter
+        >
+        bool generate_impl
+        (
+            OutputIterator& sink, Context& ctx, Delimiter const& d
+          , mpl::true_
+        ) const
+        {
+            return subject.generate(sink, ctx, d, stuff(unused, ctx));
+        }
+
+        // non-lazy
+        template
+        <
+            typename OutputIterator, typename Context, typename Delimiter
+        >
+        bool generate_impl
+        (
+            OutputIterator& sink, Context& ctx, Delimiter const& d
+          , mpl::false_
+        ) const
+        {
+            return subject.generate(sink, ctx, d, stuff);
+        }
+
         template
         <
             typename OutputIterator, typename Context
@@ -86,7 +113,8 @@ namespace boost { namespace spirit { namespace repository {namespace karma
           , Attribute const& /*attr*/
         ) const
         {
-            return subject.generate(sink, ctx, d, stuff);
+            phoenix::is_actor<Stuff> is_actor;
+            return this->generate_impl(sink, ctx, d, is_actor);
         }
 
         template <typename Context>
